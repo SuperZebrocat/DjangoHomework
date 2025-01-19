@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load my_tags %}
+{% block content %}
+{% include 'includes/inc_header.html' with page_header='Карточка товара' %}
+<div class="container">
+    <div class="row">
+
+            <div class="col-md-4"> <!-- Используем col-md-4 для 3 колонок на средних и больших экранах -->
+                <div class="card text-center mt-4">
+
+                    <div class="card-header">
+                        <h4>{{ product.name }}</h4>
+
+                    </div>
+                    <img src='{{ product.image | media_filter }}' class="card-img-top img-placeholder" alt="..." style="width: 100%; height: auto;">
+                    <div class="card-body">
+                        <p>Категория: {{ product.category }}</p>
+                        <h5 class="card-title">Цена: {{ product.price }} руб.</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="{% url 'catalog:home' %}" class="btn btn-primary w-100 btn-outline-primary btn-light">Назад</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}
