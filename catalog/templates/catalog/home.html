@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
-{% include 'includes/inc_header.html' with page_header='FreshStore' %}
+{% include 'catalog/includes/inc_header.html' with page_header='FreshStore' %}
 <p class="lead" style="text-align: center;">FreshStore - самые свежие продукты для вас каждый день</p>
 <div class="container">
     <div class="row">
-        {% for product in products %}
+        {% for product in product_list %}
 
             <div class="col-md-4"> <!-- Используем col-md-4 для 3 колонок на средних и больших экранах -->
                 <div class="card text-center mt-4">
@@ -16,7 +16,7 @@
                     <img src='{{ product.image | media_filter }}' class="card-img-top img-placeholder" alt="..." style="width: 350px; height: 300px;">
                     <div class="card-body">
                         <p class="card-text">{{ product.description }}</p>
-                        <a href="{% url 'catalog:products_detail' product.pk %}" class="btn btn-primary w-100 btn-outline-primary btn-light">Посмотреть</a>
+                        <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary w-100 btn-outline-primary btn-light">Посмотреть</a>
                     </div>
                 </div>
             </div>
