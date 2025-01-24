@@ -12,7 +12,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
-        ordering = ['is_published']
+        ordering = ['title', 'created_at']
 
     def __str__(self):
         return self.title
