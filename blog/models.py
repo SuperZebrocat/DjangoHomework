@@ -6,8 +6,8 @@ class Post(models.Model):
     article = models.TextField(verbose_name='Текст статьи')
     image = models.ImageField(upload_to='images/', verbose_name='Превью', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_published = models.BooleanField(default=False)
-    views = models.IntegerField(default=0)
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовать')
+    views_counter = models.PositiveIntegerField(default=0, verbose_name='Количество просмотров')
 
     class Meta:
         verbose_name = 'Статья'
