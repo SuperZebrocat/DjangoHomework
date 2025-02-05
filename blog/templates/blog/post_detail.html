@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}Просмотр статьи{% endblock %}
+
+{% block content %}
+
+<h2><img src="{{ post.image | media_filter }}" style="width:100px; height:auto;">{{ post.title }}</h2>
+<p>{{ post.article }}</p>
+<p>Дата публикации: {{ post.created_at|date:"d M Y" }}</p>
+<p>Количество просмотров: {{ post.views_counter }}</p>
+<a href="{% url 'blog:post_update' post.pk %}" class="btn btn-secondary">Редактировать</a>
+<a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Удалить</a>
+<a href="{% url 'blog:post_list' %}" class="btn btn-primary">Вернуться к списку</a>
+{% endblock %}
+

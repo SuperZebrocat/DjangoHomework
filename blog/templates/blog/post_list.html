@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}Список статей{% endblock %}
+
+{% block content %}
+
+<h2>Список статей</h2>
+<ul class="list-group">
+    {% for post in post_list %}
+        <li class="list-group-item">
+            <a href="{% url 'blog:post_detail' post.pk %}"><img src="{{ post.image | media_filter }}" style="width:100px; height:auto;"> {{ post.title }}</a> - {{ post.created_at|date:"d M Y" }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
