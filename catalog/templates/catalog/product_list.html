@@ -2,11 +2,16 @@
 {% load catalog_tags %}
 {% block content %}
 {% include 'catalog/includes/inc_header.html' with page_header='FreshStore' %}
-<p class="lead" style="text-align: center;">FreshStore - самые свежие продукты для вас каждый день</p>
+<div class="container mt-2 text-center">
+    {% if user.is_authenticated %}
+        <h5>Добро пожаловать, {{ user.email }}!</h5>
+    {% else %}
+        <h5>Добро пожаловать на сайт!</h5>
+    {% endif %}
+</div>
 <div class="container">
     <div class="row">
         {% for product in product_list %}
-
             <div class="col-md-4"> <!-- Используем col-md-4 для 3 колонок на средних и больших экранах -->
                 <div class="card text-center mt-4">
 
