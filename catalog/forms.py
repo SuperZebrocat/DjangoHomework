@@ -10,7 +10,7 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
-        exclude = ['image']
+        exclude = ['image', 'owner']
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -63,3 +63,9 @@ class ProductForm(ModelForm):
         if price < 0:
             raise ValidationError('Цена не должна быть отрицательной')
         return price
+
+
+class ProductModeratorForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['is_published']
