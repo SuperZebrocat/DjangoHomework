@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
 
-            <div class="col-md-4"> <!-- Используем col-md-4 для 3 колонок на средних и больших экранах -->
+            <div class="col-md-5"> <!-- Используем col-md-4 для 3 колонок на средних и больших экранах -->
                 <div class="card text-center mt-4">
 
                     <div class="card-header">
@@ -17,8 +17,19 @@
                         <p>Категория: {{ product.category }}</p>
                         <h5 class="card-title">Цена: {{ product.price }} руб.</h5>
                         <p class="card-text">{{ product.description }}</p>
-                        <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                        {% if perms.catalog.can_unpublish_product %}
+                            {% if product.is_published == True %}
+                                <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Снять с публикации</a>
+                            {% elif product.is_published == False %}
+                                <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Опубликовать</a>
+                            {% endif %}
                         <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+
+                        {% elif user == product.owner %}
+                            <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                            <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+                        {% endif %}
+
                         <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Назад в каталог</a>
                     </div>
                 </div>
