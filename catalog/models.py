@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Category(models.Model):
     objects = None
@@ -22,9 +24,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', verbose_name='Изображение продукта', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     price = models.FloatField(verbose_name='Цена продукта', null=True)
-    is_published = models.BooleanField(default=False, verbose_name='Добавить продукт')
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовать')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    owner = models.ForeignKey(User, verbose_name="Владелец", blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Продукт'
