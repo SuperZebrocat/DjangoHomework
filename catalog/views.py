@@ -1,4 +1,5 @@
 from .models import Product, Category
+from catalog.services import get_products_from_cache, get_products_by_category
 from catalog.forms import ProductForm, ProductModeratorForm
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404
@@ -63,10 +64,8 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated:
-            return Product.objects.all()
-        else:
-            return Product.objects.filter(is_published=True)
+        return get_products_from_cache(user)
+
 
 
 @method_decorator(cache_page(60*15), name='dispatch')
@@ -81,7 +80,7 @@ class ContactsTemplateView(TemplateView):
 class ProductsByCategoryView(View):
     def get(self, request, category_id):
         category = get_object_or_404(Category, id=category_id)
-        products = Product.objects.filter(category=category)
+        products = get_products_by_category(category)
         return render(request, 'catalog/products_by_category.html', {
             'category': category,
             'products': products
