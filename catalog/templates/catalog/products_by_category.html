@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+{% load catalog_tags %}
+{% block title %}Категория {{ category.name }}{% endblock %}
+{% block content %}
+
+<h1 style="text-align: center;">Продукты в категории {{ category.name }}</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.price }} руб.</li>
+        {% empty %}
+            <li>Нет продуктов в этой категории.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
