@@ -1,9 +1,10 @@
-from .models import Product
+from .models import Product, Category
 from catalog.forms import ProductForm, ProductModeratorForm
 from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404
 
 
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -75,3 +76,13 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
 class ContactsTemplateView(TemplateView):
     template_name = 'catalog/contacts.html'
+
+
+class ProductsByCategoryView(View):
+    def get(self, request, category_id):
+        category = get_object_or_404(Category, id=category_id)
+        products = Product.objects.filter(category=category)
+        return render(request, 'catalog/products_by_category.html', {
+            'category': category,
+            'products': products
+        })
