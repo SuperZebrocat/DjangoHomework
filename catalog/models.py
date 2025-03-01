@@ -4,7 +4,6 @@ from users.models import User
 
 
 class Category(models.Model):
-    objects = None
     name = models.CharField(max_length=150, verbose_name='Название категории')
     description = models.TextField(verbose_name='Описание категории', blank=True, null=True)
 
